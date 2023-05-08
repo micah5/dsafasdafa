@@ -1,0 +1,116 @@
+[gd_scene load_steps=16 format=3 uid="uid://bq41uswq0ktfj"]
+
+[ext_resource type="Shader" path="res://node_3d.gdshader" id="1_6cm0l"]
+[ext_resource type="ArrayMesh" uid="uid://bckr8fqnothp0" path="res://rocks.obj" id="1_6kkwy"]
+[ext_resource type="ArrayMesh" uid="uid://d4hhctlqtem35" path="res://sand.obj" id="1_lni8d"]
+[ext_resource type="Texture2D" uid="uid://b3vilgm0utp24" path="res://3edKsu5.png" id="2_m4sso"]
+[ext_resource type="ArrayMesh" uid="uid://drilo1ajcq337" path="res://case.obj" id="2_t7nkc"]
+[ext_resource type="ArrayMesh" uid="uid://dxjbxbfr3xy4l" path="res://outside glass.obj" id="6_gvhbx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7fhf"]
+shader = ExtResource("1_6cm0l")
+shader_parameter/levels = 16
+shader_parameter/threshold = 0.0
+shader_parameter/colors = 32
+shader_parameter/pixelate = 1
+shader_parameter/dither_texture = ExtResource("2_m4sso")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1roaf"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oy8xj"]
+
+[sub_resource type="Environment" id="Environment_bsv87"]
+background_mode = 1
+ambient_light_source = 3
+ambient_light_color = Color(0.00784314, 0.164706, 0.545098, 1)
+ambient_light_sky_contribution = 0.17
+tonemap_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_6m2w2"]
+offsets = PackedFloat32Array(0.0133038, 0.600887, 0.993348)
+colors = PackedColorArray(0.00784314, 0.164706, 0.545098, 1, 0.0313726, 0.0509804, 0.411765, 0.223214, 0.0313726, 0.0509804, 0.411765, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pv6vu"]
+gradient = SubResource("Gradient_6m2w2")
+fill = 1
+fill_from = Vector2(0.517094, 0.521368)
+fill_to = Vector2(0.995726, 0.00854701)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f77r4"]
+transparency = 1
+albedo_color = Color(0.00784314, 0.164706, 0.545098, 1)
+albedo_texture = SubResource("GradientTexture2D_pv6vu")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lmr1n"]
+material = SubResource("StandardMaterial3D_f77r4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utq6n"]
+transparency = 1
+blend_mode = 1
+no_depth_test = true
+metallic_specular = 1.0
+roughness = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+texture_filter = 3
+material = SubResource("ShaderMaterial_y7fhf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_1roaf")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(960, 540)
+
+[node name="Group" type="Node3D" parent="SubViewport"]
+
+[node name="Sand" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = ExtResource("1_lni8d")
+skeleton = NodePath("../../..")
+
+[node name="Rocks" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = ExtResource("1_6kkwy")
+skeleton = NodePath("../../..")
+
+[node name="Case Inside" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = ExtResource("2_t7nkc")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_oy8xj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Group"]
+environment = SubResource("Environment_bsv87")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Group"]
+transform = Transform3D(1, -6.97574e-16, 4.15924e-24, 4.15924e-24, 1.19249e-08, 1, -6.97574e-16, -1, 1.19249e-08, 0, 12.8528, 0)
+light_color = Color(0, 0.462745, 1, 1)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Group"]
+transform = Transform3D(1, 0, 0, 0, 0.948252, 0.31752, 0, -0.31752, 0.948252, 2.08165e-12, 10.3999, 17.84)
+projection = 1
+size = 18.0
+
+[node name="Floor" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("PlaneMesh_lmr1n")
+
+[node name="OutsideGlass" type="MeshInstance3D" parent="SubViewport/Group"]
+mesh = ExtResource("6_gvhbx")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_utq6n")

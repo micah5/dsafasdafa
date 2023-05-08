@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dxjbxbfr3xy4l"
+path="res://.godot/imported/outside glass.obj-611c5d57eabcc965b5eba2ce35ee3dbf.mesh"
+
+[deps]
+
+files=["res://.godot/imported/outside glass.obj-611c5d57eabcc965b5eba2ce35ee3dbf.mesh"]
+
+source_file="res://outside glass.obj"
+dest_files=["res://.godot/imported/outside glass.obj-611c5d57eabcc965b5eba2ce35ee3dbf.mesh", "res://.godot/imported/outside glass.obj-611c5d57eabcc965b5eba2ce35ee3dbf.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
