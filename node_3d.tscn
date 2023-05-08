@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bq41uswq0ktfj"]
+[gd_scene load_steps=18 format=3 uid="uid://bq41uswq0ktfj"]
 
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="1_6cm0l"]
 [ext_resource type="ArrayMesh" uid="uid://bckr8fqnothp0" path="res://rocks.obj" id="1_6kkwy"]
 [ext_resource type="ArrayMesh" uid="uid://d4hhctlqtem35" path="res://sand.obj" id="1_lni8d"]
 [ext_resource type="Texture2D" uid="uid://b3vilgm0utp24" path="res://3edKsu5.png" id="2_m4sso"]
 [ext_resource type="ArrayMesh" uid="uid://drilo1ajcq337" path="res://case.obj" id="2_t7nkc"]
+[ext_resource type="Script" path="res://Camera3D.gd" id="6_4awta"]
 [ext_resource type="ArrayMesh" uid="uid://dxjbxbfr3xy4l" path="res://outside glass.obj" id="6_gvhbx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7fhf"]
@@ -17,6 +18,9 @@ shader_parameter/dither_texture = ExtResource("2_m4sso")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1roaf"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7i44"]
+albedo_color = Color(0, 0.776471, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oy8xj"]
 
@@ -82,6 +86,7 @@ size = Vector2i(960, 540)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = ExtResource("1_lni8d")
 skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_q7i44")
 
 [node name="Rocks" type="MeshInstance3D" parent="SubViewport/Group"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
@@ -104,7 +109,8 @@ light_color = Color(0, 0.462745, 1, 1)
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Group"]
 transform = Transform3D(1, 0, 0, 0, 0.948252, 0.31752, 0, -0.31752, 0.948252, 2.08165e-12, 10.3999, 17.84)
 projection = 1
-size = 18.0
+size = 13.0
+script = ExtResource("6_4awta")
 
 [node name="Floor" type="MeshInstance3D" parent="SubViewport/Group"]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
