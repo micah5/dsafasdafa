@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dcplb5hfv3wfy"
+path="res://.godot/imported/god rays.obj-cbce87038cd3a01b7f69044e0b7c7c4b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/god rays.obj-cbce87038cd3a01b7f69044e0b7c7c4b.mesh"]
+
+source_file="res://god rays.obj"
+dest_files=["res://.godot/imported/god rays.obj-cbce87038cd3a01b7f69044e0b7c7c4b.mesh", "res://.godot/imported/god rays.obj-cbce87038cd3a01b7f69044e0b7c7c4b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

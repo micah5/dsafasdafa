@@ -1,6 +1,6 @@
 extends Camera3D
 
-var rotation_speed: float = 10.0
+var rotation_speed: float = 15.0
 
 func _process(delta: float) -> void:
 	var rotation_dir: float = 0.0

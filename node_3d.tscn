@@ -1,28 +1,44 @@
-[gd_scene load_steps=18 format=3 uid="uid://bq41uswq0ktfj"]
+[gd_scene load_steps=28 format=3 uid="uid://bq41uswq0ktfj"]
 
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="1_6cm0l"]
 [ext_resource type="ArrayMesh" uid="uid://bckr8fqnothp0" path="res://rocks.obj" id="1_6kkwy"]
 [ext_resource type="ArrayMesh" uid="uid://d4hhctlqtem35" path="res://sand.obj" id="1_lni8d"]
 [ext_resource type="Texture2D" uid="uid://b3vilgm0utp24" path="res://3edKsu5.png" id="2_m4sso"]
 [ext_resource type="ArrayMesh" uid="uid://drilo1ajcq337" path="res://case.obj" id="2_t7nkc"]
+[ext_resource type="Shader" path="res://water_floor.gdshader" id="4_xduyb"]
 [ext_resource type="Script" path="res://Camera3D.gd" id="6_4awta"]
 [ext_resource type="ArrayMesh" uid="uid://dxjbxbfr3xy4l" path="res://outside glass.obj" id="6_gvhbx"]
+[ext_resource type="ArrayMesh" uid="uid://cwvmnc7iafm6d" path="res://light rays.obj" id="8_kkx21"]
+[ext_resource type="Shader" path="res://water_surface.gdshader" id="9_yxu7t"]
+[ext_resource type="Shader" path="res://lightrays.gdshader" id="10_2t2y6"]
+[ext_resource type="ArrayMesh" uid="uid://dox3ei0b3rgxf" path="res://staghorn.obj" id="11_nwwkl"]
+[ext_resource type="Shader" path="res://plant_wave.gdshader" id="12_i3je7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7fhf"]
 shader = ExtResource("1_6cm0l")
 shader_parameter/levels = 16
-shader_parameter/threshold = 0.0
-shader_parameter/colors = 32
-shader_parameter/pixelate = 1
+shader_parameter/threshold = 0.3
+shader_parameter/pixelate = 2
+shader_parameter/palette = PackedVector3Array(2.08165e-12, 0.46, 1, 2.08165e-12, 0.35, 0.79, 2.08165e-12, 0.16, 0.54, 0.03, 0.05, 0.41, 2.08165e-12, 0.77, 1, 2.08165e-12, 0.63, 1, 0.84, 1, 0.94)
 shader_parameter/dither_texture = ExtResource("2_m4sso")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1roaf"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7i44"]
-albedo_color = Color(0, 0.776471, 1, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_51vpa"]
+render_priority = 0
+shader = ExtResource("4_xduyb")
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(1, 1, 1, 1)
+shader_parameter/FOAM_COL = Quaternion(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(100, 50)
+shader_parameter/wave_speed = 1.5
+shader_parameter/draw_top_layer = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oy8xj"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.298039)
 
 [sub_resource type="Environment" id="Environment_bsv87"]
 background_mode = 1
@@ -56,6 +72,36 @@ no_depth_test = true
 metallic_specular = 1.0
 roughness = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jkma"]
+render_priority = 0
+shader = ExtResource("10_2t2y6")
+shader_parameter/sway_frequency = 1.0
+shader_parameter/sway_amplitude = 0.5
+shader_parameter/sway_speed = 2.0
+shader_parameter/color = Vector3(1, 1, 1)
+shader_parameter/emission_strength = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3g4ju"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1vsm"]
+render_priority = 0
+shader = ExtResource("9_yxu7t")
+shader_parameter/WATER_COL = Color(0.00784314, 0.215686, 0.529412, 1)
+shader_parameter/WATER2_COL = Color(0.0588235, 0.529412, 0.776471, 1)
+shader_parameter/FOAM_COL = Color(0.00784314, 0.290196, 1, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(20, 10)
+shader_parameter/wave_speed = 1.5
+shader_parameter/draw_top_layer = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2ufq"]
+render_priority = 0
+shader = ExtResource("12_i3je7")
+shader_parameter/sway_frequency = 0.01
+shader_parameter/sway_amplitude = 0.01
+shader_parameter/sway_speed = 2.0
+shader_parameter/color = Color(0.439216, 0.2, 0.498039, 1)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="Control" type="Control" parent="."]
@@ -78,7 +124,7 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_1roaf")
 
 [node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2i(960, 540)
+size = Vector2i(1280, 720)
 
 [node name="Group" type="Node3D" parent="SubViewport"]
 
@@ -86,7 +132,7 @@ size = Vector2i(960, 540)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = ExtResource("1_lni8d")
 skeleton = NodePath("../../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_q7i44")
+surface_material_override/0 = SubResource("ShaderMaterial_51vpa")
 
 [node name="Rocks" type="MeshInstance3D" parent="SubViewport/Group"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
@@ -109,7 +155,7 @@ light_color = Color(0, 0.462745, 1, 1)
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Group"]
 transform = Transform3D(1, 0, 0, 0, 0.948252, 0.31752, 0, -0.31752, 0.948252, 2.08165e-12, 10.3999, 17.84)
 projection = 1
-size = 13.0
+size = 16.0
 script = ExtResource("6_4awta")
 
 [node name="Floor" type="MeshInstance3D" parent="SubViewport/Group"]
@@ -120,3 +166,22 @@ mesh = SubResource("PlaneMesh_lmr1n")
 mesh = ExtResource("6_gvhbx")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_utq6n")
+
+[node name="LightRays" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+visible = false
+mesh = ExtResource("8_kkx21")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_0jkma")
+
+[node name="Water surface" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 5, 2.08165e-12, 10, 2.08165e-12)
+mesh = SubResource("PlaneMesh_3g4ju")
+surface_material_override/0 = SubResource("ShaderMaterial_s1vsm")
+
+[node name="Staghorn" type="MeshInstance3D" parent="SubViewport/Group"]
+transform = Transform3D(-1.62626, 0.718888, -0.915688, 0.946107, 1.73278, -0.319908, 0.678356, -0.693296, -1.74905, -3.47035, 1.652, 1.72364)
+visible = false
+mesh = ExtResource("11_nwwkl")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_k2ufq")
