@@ -5,7 +5,7 @@ uniform int levels : hint_range(1, 16);
 uniform float threshold : hint_range(0.0, 1.0);
 uniform int pixelate : hint_range(1, 10);
 uniform sampler2D dither_texture : filter_nearest;
-const vec3 palette[9] = {
+const vec3 palette[10] = {
     vec3(0.0, 0.46, 1.0),
 	vec3(0.0, 0.35, 0.79),
 	vec3(0.0, 0.16, 0.54),
@@ -14,6 +14,7 @@ const vec3 palette[9] = {
 	vec3(0.84, 1.0, 0.94),
 	vec3(0.43, 0.2, 0.5),
 	vec3(1.0, 1.0, 1.0),
+	vec3(0.0, 0.6, 0.57),
 	vec3(0.0, 0.0, 0.0)
 };
 

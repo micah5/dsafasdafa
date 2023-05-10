@@ -15,4 +15,5 @@ void vertex() {
 
 void fragment() {
         ALBEDO = color;
+		//EMISSION = color;
 }

@@ -4,7 +4,39 @@ uniform int levels : hint_range(1, 16);
 uniform float threshold : hint_range(0.0, 1.0);
 uniform int pixelate : hint_range(1, 10);
 uniform sampler2D dither_texture : filter_nearest;
-uniform vec3 palette[16];
+const vec3 palette[6] = {
+	// Neon Space
+	/*vec3(223.0/255.0, 7.0/255.0, 114.0/255.0),   // #df0772
+    vec3(254.0/255.0, 84.0/255.0, 111.0/255.0),  // #fe546f
+    vec3(255.0/255.0, 158.0/255.0, 125.0/255.0), // #ff9e7d
+    vec3(255.0/255.0, 208.0/255.0, 128.0/255.0), // #ffd080
+    vec3(255.0/255.0, 253.0/255.0, 255.0/255.0), // #fffdff
+    vec3(11.0/255.0, 255.0/255.0, 230.0/255.0),  // #0bffe6
+    vec3(1.0/255.0, 203.0/255.0, 207.0/255.0),   // #01cbcf
+    vec3(1.0/255.0, 136.0/255.0, 165.0/255.0),   // #0188a5
+    vec3(62.0/255.0, 50.0/255.0, 100.0/255.0),   // #3e3264
+    vec3(53.0/255.0, 42.0/255.0, 85.0/255.0)     // #352a55
+	*/
+	
+	// Eulblink
+	vec3(12.0/255.0, 230.0/255.0, 242.0/255.0),
+	vec3(0.0/255.0, 152.0/255.0, 219.0/255.0),
+	vec3(30.0/255.0, 87.0/255.0, 156.0/255.0),
+	vec3(32.0/255.0, 53.0/255.0, 98.0/255.0),
+	vec3(37.0/255.0, 36.0/255.0, 70.0/255.0),
+	vec3(32.0/255.0, 21.0/255.0, 51.0/255.0)
+	
+	//vec3(0.0, 0.63, 1.0), // cyan
+    //vec3(0.0, 0.46, 1.0), // light blue
+	//vec3(0.0, 0.35, 0.79), // middle blue
+	//vec3(0.0, 0.16, 0.54), // dark blue
+	//vec3(0.03, 0.05, 0.41), // dark blue pure
+	//vec3(0.0, 0.58, 0.57), // light green
+	//vec3(0.0, 0.37, 0.37), // middle green
+	//vec3(0.0, 0.2, 0.2), // dark green
+	//vec3(1.0, 1.0, 1.0), // white
+	//vec3(0.0, 0.0, 0.0) //black
+};
 
 float dither(float raw, float dither, int depth) {
 	
@@ -30,7 +62,7 @@ float dither(float raw, float dither, int depth) {
 vec3 closest_color(vec3 color) {
     float min_distance = distance(color, palette[0]);
     vec3 closest_color = palette[0];
-    for (int i = 1; i < 16; i++) {
+    for (int i = 1; i < palette.length(); i++) {
         float current_distance = distance(color, palette[i]);
         if (current_distance < min_distance) {
             min_distance = current_distance;

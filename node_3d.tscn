@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bq41uswq0ktfj"]
+[gd_scene load_steps=38 format=3 uid="uid://bq41uswq0ktfj"]
 
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="1_6cm0l"]
 [ext_resource type="ArrayMesh" uid="uid://bckr8fqnothp0" path="res://rocks.obj" id="1_6kkwy"]
@@ -16,13 +16,14 @@
 [ext_resource type="ArrayMesh" uid="uid://dox3ei0b3rgxf" path="res://staghorn.obj" id="11_nwwkl"]
 [ext_resource type="Shader" path="res://plant_wave.gdshader" id="12_i3je7"]
 [ext_resource type="ArrayMesh" uid="uid://dn1taekwnlsu7" path="res://longplant.obj" id="16_4j50j"]
+[ext_resource type="ArrayMesh" uid="uid://c28jbsvjybkvj" path="res://longplant2.obj" id="17_2axfd"]
+[ext_resource type="ArrayMesh" uid="uid://dueogqur7w0ry" path="res://longplant3.obj" id="18_mjo45"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7fhf"]
 shader = ExtResource("1_6cm0l")
 shader_parameter/levels = 16
 shader_parameter/threshold = 0.6
 shader_parameter/pixelate = 2
-shader_parameter/palette = PackedVector3Array(2.08165e-12, 0.46, 1, 2.08165e-12, 0.35, 0.79, 2.08165e-12, 0.16, 0.54, 0.03, 0.05, 0.41, 2.08165e-12, 0.77, 1, 2.08165e-12, 0.63, 1, 0.84, 1, 0.94, 0.43, 0.2, 0.5, 1, 1, 1)
 shader_parameter/dither_texture = ExtResource("2_m4sso")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1roaf"]
@@ -123,7 +124,23 @@ shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 1.0
 shader_parameter/sway_amplitude = 0.05
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0, 0.584314, 0.603922, 1)
+shader_parameter/color = Color(0, 0.584314, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pywr8"]
+render_priority = 0
+shader = ExtResource("12_i3je7")
+shader_parameter/sway_frequency = 1.0
+shader_parameter/sway_amplitude = 0.05
+shader_parameter/sway_speed = 2.0
+shader_parameter/color = Color(0, 0.945098, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ds44b"]
+render_priority = 0
+shader = ExtResource("12_i3je7")
+shader_parameter/sway_frequency = 1.0
+shader_parameter/sway_amplitude = 0.05
+shader_parameter/sway_speed = 2.0
+shader_parameter/color = Color(0, 0.823529, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -192,7 +209,6 @@ environment = SubResource("Environment_bsv87")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Group"]
 transform = Transform3D(1, -6.97574e-16, 4.15924e-24, 4.15924e-24, 1.19249e-08, 1, -6.97574e-16, -1, 1.19249e-08, 0, 12.8528, 0)
-light_color = Color(0, 0.462745, 1, 1)
 
 [node name="Floor" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
@@ -229,10 +245,23 @@ mesh = SubResource("PlaneMesh_3g4ju")
 surface_material_override/0 = SubResource("ShaderMaterial_s1vsm")
 
 [node name="Longplant" type="MeshInstance3D" parent="Group"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.67108, 1.03385, -1.48004)
+transform = Transform3D(-0.766145, 0, 0.642667, 0, 1, 0, -0.642667, 0, -0.766145, -6.357, 1.496, 1.764)
+visible = false
 mesh = ExtResource("16_4j50j")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_bkq0t")
+
+[node name="Longplant2" type="MeshInstance3D" parent="Group"]
+transform = Transform3D(0.0954502, 2.78846e-16, 0.894924, 3.13908e-16, 0.9, -3.13908e-16, -0.894924, 3.4543e-16, 0.0954502, -7.416, 1.494, -1.566)
+mesh = ExtResource("17_2axfd")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_pywr8")
+
+[node name="Longplant3" type="MeshInstance3D" parent="Group"]
+transform = Transform3D(0.413502, 0, 0.910503, 0, 1, 0, -0.910503, 0, 0.413502, 3.18568, 1.13007, -1.0519)
+mesh = ExtResource("18_mjo45")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ds44b")
 
 [node name="SubViewport2" type="SubViewport" parent="."]
 size = Vector2i(1280, 720)
