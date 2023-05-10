@@ -23,7 +23,7 @@
 shader = ExtResource("1_6cm0l")
 shader_parameter/levels = 16
 shader_parameter/threshold = 0.6
-shader_parameter/pixelate = 2
+shader_parameter/pixelate = 3
 shader_parameter/dither_texture = ExtResource("2_m4sso")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1roaf"]
@@ -45,7 +45,7 @@ viewport_path = NodePath("SubViewport2")
 render_priority = 0
 shader = ExtResource("4_xduyb")
 shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
-shader_parameter/WATER2_COL = Color(1, 1, 1, 1)
+shader_parameter/WATER2_COL = Color(0.101961, 1, 1, 1)
 shader_parameter/FOAM_COL = Quaternion(0.8125, 0.9609, 0.9648, 1)
 shader_parameter/distortion_speed = 2.0
 shader_parameter/tile = Vector2(100, 50)
@@ -132,7 +132,7 @@ shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 1.0
 shader_parameter/sway_amplitude = 0.05
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0, 0.945098, 0, 1)
+shader_parameter/color = Color(0.513726, 1, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ds44b"]
 render_priority = 0
@@ -140,7 +140,7 @@ shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 1.0
 shader_parameter/sway_amplitude = 0.05
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0, 0.823529, 0, 1)
+shader_parameter/color = Color(0.505882, 1, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -200,6 +200,7 @@ skeleton = NodePath("../..")
 
 [node name="Case Inside" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+visible = false
 mesh = ExtResource("2_t7nkc")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_oy8xj")
