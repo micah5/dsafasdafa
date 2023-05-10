@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bq41uswq0ktfj"]
+[gd_scene load_steps=42 format=3 uid="uid://bq41uswq0ktfj"]
 
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="1_6cm0l"]
 [ext_resource type="ArrayMesh" uid="uid://bckr8fqnothp0" path="res://rocks.obj" id="1_6kkwy"]
@@ -14,16 +14,18 @@
 [ext_resource type="Shader" path="res://lightrays.gdshader" id="10_2t2y6"]
 [ext_resource type="Script" path="res://LightRays.gd" id="11_ltv1o"]
 [ext_resource type="ArrayMesh" uid="uid://dox3ei0b3rgxf" path="res://staghorn.obj" id="11_nwwkl"]
+[ext_resource type="ArrayMesh" uid="uid://b0rxal2oaqgef" path="res://seaweed.obj" id="11_q7854"]
 [ext_resource type="Shader" path="res://plant_wave.gdshader" id="12_i3je7"]
 [ext_resource type="ArrayMesh" uid="uid://dn1taekwnlsu7" path="res://longplant.obj" id="16_4j50j"]
 [ext_resource type="ArrayMesh" uid="uid://c28jbsvjybkvj" path="res://longplant2.obj" id="17_2axfd"]
 [ext_resource type="ArrayMesh" uid="uid://dueogqur7w0ry" path="res://longplant3.obj" id="18_mjo45"]
+[ext_resource type="ArrayMesh" uid="uid://gdvl7twhyrm6" path="res://sand_Sides.obj" id="20_fru6g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7fhf"]
 shader = ExtResource("1_6cm0l")
 shader_parameter/levels = 16
 shader_parameter/threshold = 0.6
-shader_parameter/pixelate = 3
+shader_parameter/pixelate = 4
 shader_parameter/dither_texture = ExtResource("2_m4sso")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1roaf"]
@@ -41,16 +43,19 @@ shader_parameter/dither_texture = ExtResource("2_m4sso")
 [sub_resource type="ViewportTexture" id="ViewportTexture_xtdsd"]
 viewport_path = NodePath("SubViewport2")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_51vpa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t51ag"]
 render_priority = 0
 shader = ExtResource("4_xduyb")
-shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
-shader_parameter/WATER2_COL = Color(0.101961, 1, 1, 1)
-shader_parameter/FOAM_COL = Quaternion(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/WATER_COL = Color(0.439216, 0.52549, 0.839216, 1)
+shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Color(0.537255, 0.584314, 0.807843, 1)
 shader_parameter/distortion_speed = 2.0
-shader_parameter/tile = Vector2(100, 50)
+shader_parameter/tile = Vector2(150, 75)
 shader_parameter/wave_speed = 1.5
-shader_parameter/draw_top_layer = false
+shader_parameter/draw_top_layer = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_br6qi"]
+albedo_color = Color(0.439216, 0.52549, 0.839216, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oy8xj"]
 transparency = 1
@@ -59,13 +64,13 @@ albedo_color = Color(1, 1, 1, 0.298039)
 [sub_resource type="Environment" id="Environment_bsv87"]
 background_mode = 1
 ambient_light_source = 3
-ambient_light_color = Color(0.00784314, 0.164706, 0.545098, 1)
+ambient_light_color = Color(0.439216, 0.52549, 0.839216, 1)
 ambient_light_sky_contribution = 0.17
 tonemap_mode = 2
 
 [sub_resource type="Gradient" id="Gradient_6m2w2"]
 offsets = PackedFloat32Array(0.0133038, 0.600887, 0.993348)
-colors = PackedColorArray(0.00784314, 0.164706, 0.545098, 1, 0.0313726, 0.0509804, 0.411765, 0.223214, 0.0313726, 0.0509804, 0.411765, 0)
+colors = PackedColorArray(0.458824, 0.313726, 0.592157, 1, 0.0313726, 0.0509804, 0.411765, 0.223214, 0.0313726, 0.0509804, 0.411765, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_pv6vu"]
 gradient = SubResource("Gradient_6m2w2")
@@ -75,7 +80,7 @@ fill_to = Vector2(0.995726, 0.00854701)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f77r4"]
 transparency = 1
-albedo_color = Color(0.00784314, 0.164706, 0.545098, 1)
+albedo_color = Color(0.458824, 0.313726, 0.592157, 1)
 albedo_texture = SubResource("GradientTexture2D_pv6vu")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_lmr1n"]
@@ -116,15 +121,23 @@ shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 0.01
 shader_parameter/sway_amplitude = 0.01
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0.439216, 0.2, 0.498039, 1)
+shader_parameter/color = Color(0.933333, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bkq0t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b55nw"]
+render_priority = 0
+shader = ExtResource("12_i3je7")
+shader_parameter/sway_frequency = 1.0
+shader_parameter/sway_amplitude = 0.01
+shader_parameter/sway_speed = 2.0
+shader_parameter/color = Color(0.584314, 0.501961, 0.670588, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47n0p"]
 render_priority = 0
 shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 1.0
 shader_parameter/sway_amplitude = 0.05
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0, 0.584314, 0, 1)
+shader_parameter/color = Color(0.239216, 0.513726, 0.443137, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pywr8"]
 render_priority = 0
@@ -132,7 +145,7 @@ shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 1.0
 shader_parameter/sway_amplitude = 0.05
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0.513726, 1, 0, 1)
+shader_parameter/color = Color(0.239216, 0.513726, 0.443137, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ds44b"]
 render_priority = 0
@@ -140,11 +153,12 @@ shader = ExtResource("12_i3je7")
 shader_parameter/sway_frequency = 1.0
 shader_parameter/sway_amplitude = 0.05
 shader_parameter/sway_speed = 2.0
-shader_parameter/color = Color(0.505882, 1, 0, 1)
+shader_parameter/color = Color(0.239216, 0.513726, 0.443137, 1)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Control" type="Control" parent="."]
+use_parent_material = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -191,16 +205,16 @@ script = ExtResource("6_4awta")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = ExtResource("1_lni8d")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_51vpa")
+surface_material_override/0 = SubResource("ShaderMaterial_t51ag")
 
 [node name="Rocks" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = ExtResource("1_6kkwy")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_br6qi")
 
 [node name="Case Inside" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
-visible = false
 mesh = ExtResource("2_t7nkc")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_oy8xj")
@@ -216,6 +230,7 @@ transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
 mesh = SubResource("PlaneMesh_lmr1n")
 
 [node name="OutsideGlass" type="MeshInstance3D" parent="Group"]
+visible = false
 mesh = ExtResource("6_gvhbx")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_utq6n")
@@ -230,11 +245,12 @@ script = ExtResource("11_ltv1o")
 
 [node name="Water surface" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 5, 2.08165e-12, 10, 2.08165e-12)
+visible = false
 mesh = SubResource("PlaneMesh_3g4ju")
 surface_material_override/0 = SubResource("ShaderMaterial_s1vsm")
 
 [node name="Staghorn" type="MeshInstance3D" parent="Group"]
-transform = Transform3D(-1.62626, 0.718888, -0.915688, 0.946107, 1.73278, -0.319908, 0.678356, -0.693296, -1.74905, -3.47035, 1.652, 1.72364)
+transform = Transform3D(-3.79798, 2.23746, -2.35991, 2.77477, 4.12185, -0.557665, 1.69589, -1.73324, -4.37262, -3.1172, 2.60069, 1.72364)
 visible = false
 mesh = ExtResource("11_nwwkl")
 skeleton = NodePath("../..")
@@ -245,12 +261,17 @@ transform = Transform3D(10, -1.74393e-15, -1.74393e-15, -3.48787e-15, -5, 4.3711
 mesh = SubResource("PlaneMesh_3g4ju")
 surface_material_override/0 = SubResource("ShaderMaterial_s1vsm")
 
+[node name="Seaweed" type="MeshInstance3D" parent="Group"]
+transform = Transform3D(0.880262, 0, -0.474488, 0, 1, 0, 0.474488, 0, 0.880262, 3.34636, 3.44746, 0.902165)
+mesh = ExtResource("11_q7854")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_b55nw")
+
 [node name="Longplant" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(-0.766145, 0, 0.642667, 0, 1, 0, -0.642667, 0, -0.766145, -6.357, 1.496, 1.764)
-visible = false
 mesh = ExtResource("16_4j50j")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_bkq0t")
+surface_material_override/0 = SubResource("ShaderMaterial_47n0p")
 
 [node name="Longplant2" type="MeshInstance3D" parent="Group"]
 transform = Transform3D(0.0954502, 2.78846e-16, 0.894924, 3.13908e-16, 0.9, -3.13908e-16, -0.894924, 3.4543e-16, 0.0954502, -7.416, 1.494, -1.566)
@@ -263,6 +284,11 @@ transform = Transform3D(0.413502, 0, 0.910503, 0, 1, 0, -0.910503, 0, 0.413502, 
 mesh = ExtResource("18_mjo45")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_ds44b")
+
+[node name="SandSides" type="MeshInstance3D" parent="Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = ExtResource("20_fru6g")
+skeleton = NodePath("../..")
 
 [node name="SubViewport2" type="SubViewport" parent="."]
 size = Vector2i(1280, 720)
