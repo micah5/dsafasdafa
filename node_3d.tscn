@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bq41uswq0ktfj"]
+[gd_scene load_steps=34 format=3 uid="uid://bq41uswq0ktfj"]
 
 [ext_resource type="Shader" path="res://node_3d.gdshader" id="1_6cm0l"]
 [ext_resource type="ArrayMesh" uid="uid://bckr8fqnothp0" path="res://rocks.obj" id="1_6kkwy"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://LightRays.gd" id="11_ltv1o"]
 [ext_resource type="ArrayMesh" uid="uid://dox3ei0b3rgxf" path="res://staghorn.obj" id="11_nwwkl"]
 [ext_resource type="Shader" path="res://plant_wave.gdshader" id="12_i3je7"]
+[ext_resource type="ArrayMesh" uid="uid://dn1taekwnlsu7" path="res://longplant.obj" id="16_4j50j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7fhf"]
 shader = ExtResource("1_6cm0l")
@@ -30,7 +31,11 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2sk06"]
 resource_local_to_scene = true
 shader = ExtResource("3_gw6u6")
-shader_parameter/power = 0.3
+shader_parameter/power = 0.1
+shader_parameter/levels = 16
+shader_parameter/threshold = 0.3
+shader_parameter/pixelate = 2
+shader_parameter/dither_texture = ExtResource("2_m4sso")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_xtdsd"]
 viewport_path = NodePath("SubViewport2")
@@ -96,9 +101,9 @@ shader_parameter/emission_strength = 0.3
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s1vsm"]
 render_priority = 0
 shader = ExtResource("9_yxu7t")
-shader_parameter/WATER_COL = Color(0.00784314, 0.215686, 0.529412, 1)
-shader_parameter/WATER2_COL = Color(0.0588235, 0.529412, 0.776471, 1)
-shader_parameter/FOAM_COL = Color(0.00784314, 0.290196, 1, 1)
+shader_parameter/WATER_COL = Color(0.0313726, 0.0509804, 0.411765, 1)
+shader_parameter/WATER2_COL = Color(0, 0.160784, 0.541176, 1)
+shader_parameter/FOAM_COL = Color(0, 0.160784, 0.541176, 1)
 shader_parameter/distortion_speed = 2.0
 shader_parameter/tile = Vector2(20, 10)
 shader_parameter/wave_speed = 1.5
@@ -112,6 +117,14 @@ shader_parameter/sway_amplitude = 0.01
 shader_parameter/sway_speed = 2.0
 shader_parameter/color = Color(0.439216, 0.2, 0.498039, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bkq0t"]
+render_priority = 0
+shader = ExtResource("12_i3je7")
+shader_parameter/sway_frequency = 1.0
+shader_parameter/sway_amplitude = 0.05
+shader_parameter/sway_speed = 2.0
+shader_parameter/color = Color(0, 0.584314, 0.603922, 1)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="Control" type="Control" parent="."]
@@ -123,7 +136,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
-visible = false
 texture_filter = 3
 material = SubResource("ShaderMaterial_y7fhf")
 layout_mode = 1
@@ -135,6 +147,7 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_1roaf")
 
 [node name="TextureRect2" type="TextureRect" parent="Control"]
+visible = false
 material = SubResource("ShaderMaterial_2sk06")
 layout_mode = 1
 anchors_preset = 15
@@ -210,8 +223,19 @@ mesh = ExtResource("11_nwwkl")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_k2ufq")
 
+[node name="Water surface2" type="MeshInstance3D" parent="Group"]
+transform = Transform3D(10, -1.74393e-15, -1.74393e-15, -3.48787e-15, -5, 4.37114e-07, -3.48787e-15, -4.37114e-07, -5, 2.08165e-12, 10, 2.08165e-12)
+mesh = SubResource("PlaneMesh_3g4ju")
+surface_material_override/0 = SubResource("ShaderMaterial_s1vsm")
+
+[node name="Longplant" type="MeshInstance3D" parent="Group"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.67108, 1.03385, -1.48004)
+mesh = ExtResource("16_4j50j")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_bkq0t")
+
 [node name="SubViewport2" type="SubViewport" parent="."]
 size = Vector2i(1280, 720)
 
 [node name="Camera3D2" type="Camera3D" parent="SubViewport2"]
-transform = Transform3D(0.38107, -0.190645, -0.904677, 3.41291e-16, 0.978509, -0.206204, 0.924546, 0.0785783, 0.372881, -5.892, 1.735, 2.383)
+transform = Transform3D(0.466387, -0.391932, -0.793015, 3.12683e-16, 0.896486, -0.443071, 0.884581, 0.206642, 0.418109, -4.05, 1.505, 1.039)

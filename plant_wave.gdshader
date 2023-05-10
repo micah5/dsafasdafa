@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode unshaded;
+//render_mode unshaded;
 
 uniform float sway_frequency = 1.0;
 uniform float sway_amplitude = 0.01;
