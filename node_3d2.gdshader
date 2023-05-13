@@ -102,7 +102,7 @@ void fragment() {
         }
 
         // Find the closest color in the palette to the dithered color
-        vec3 closest_col = closest_color(quantized_col);
+        vec3 closest_col = quantized_col;//closest_color(quantized_col);
 
          // Assign the dithered color to the color variable
         color = vec4(closest_col, 1.0);
